@@ -11,7 +11,7 @@
 #include "tachometer.h"
 
 #define TACHOMETER_SYSFS "/sys/class/gpio/gpio397/value"
-//#define TACHOMETER pin7
+///#define TACHOMETER pin7
 #define TACHOMETER_IN pin13
 static double D_CM = (4.41 * 3.14 * 2.54);
 
