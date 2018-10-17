@@ -1,0 +1,3 @@
+cat /sys/class/gpio/gpio396/value
+./show
+
