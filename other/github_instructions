@@ -34,8 +34,9 @@ PUSH TO GITHUB
      First make sure that you are in the branch that you want to modify. 
      You can do that by clicking the branch option and a pop-up menu will appear. Click the branch
      that you want to modify.
-  c. Click 'Upload files' on the right side of the screen.
-  d. Add all the files that you want to push to the branch and include a small comment in the description area
+  c. Go to the folder where you want to make modifications (add file(s)).
+  d. Click 'Upload files' on the right side of the screen.
+  e. Add all the files that you want to push to the branch and include a small comment in the description area
      so that everyone knows about what you modified/added.
       
      
