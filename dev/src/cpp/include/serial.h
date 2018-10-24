@@ -1,8 +1,19 @@
 #ifndef __SERIAL_H__
 #define __SERIAL_H__
 
-#include "main.h"
+//#include "main.h"
 #include "threads.h"
+//path to possible arduinos on the jetson
+#ifdef HOME_TEST
+#define ACM0 "/dev/tty.usbmodemFD121"
+#define ACM1 "/dev/tty.usbmodemFD121"
+#endif
+#ifndef HOME_TEST
+#define ACM0 "/dev/ttyACM0"
+#define ACM1 "/dev/ttyACM1"
+#define ACM2 "/dev/ttyACM2"
+#endif
+
 
 class serial
 {
