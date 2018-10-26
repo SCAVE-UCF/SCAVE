@@ -11,12 +11,11 @@
 #include <iostream>
 #include <string>
 #include <unistd.h>
-#include "jetsonTX2.h"
-#include "serial.h"
 #include <sched.h>
 
 
-
+#include "../include/jetsonTX2.h"
+#include "../include/serial.h"
 
 int open_port(const char* port)
 {
@@ -50,7 +49,7 @@ int configure_port(int fd)
 }
 
 
-void readFiles(int* throttle, int* steering)
+void readFiles_test(int* throttle, int* steering)
 {
 	FILE* t_f = fopen("/home/nvidia/Documents/dev/src/py/teleOp/throttle.txt", "r");
 	FILE* s_f = fopen("/home/nvidia/Documents/dev/src/py/teleOp/steering.txt", "r");
