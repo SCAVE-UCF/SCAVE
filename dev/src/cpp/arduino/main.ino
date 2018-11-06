@@ -26,33 +26,61 @@ void setup()
 }
 unsigned dist = 0;
 char Byte = 0;
-
+unsigned long timeold;
 
 void loop() 
 { 
-
+  timeold = millis();
   Serial.println("begin");
-  while(1)
+  while (1)
   {
-    if(Serial.available()>0)
-    {
-      //Serial.println(Serial.read());
-      Serial.readBytes(&Byte, 1);
-      Serial.println((int)Byte);
 
-	  // if byte is possitive means speed, send pwm to the motor
-      if((int)Byte >= 0)
-      {
-       motor.write((10 * Byte) + 1000); 
-      }
-	  // if byte is negative means angle, send pwm to the steering control
-	  else {
-       steering.write(-Byte); 
-      }
-      
-      }
+	  if (Serial.available() > 0)
+	  {
+
+		  //Serial.println(Serial.read());
+		  Serial.readBytes(&Byte, 1);
+		  Serial.println((int)Byte);
+
+		  // if byte is possitive means speed, send pwm to the motor
+		  if ((int)Byte >= 0)
+		  {
+			  if (Byte < 100) {
+				  timeold = millis();
+				  motor.write((10 * Byte) + 1000);
+			  }
+			  else {
+				  Serial.print("Wrong number ");
+				  Serial.println((int)Byte);
+			  }
+
+		  }
+		  // if byte is negative means angle, send pwm to the steering control
+		  else {
+			  if (60 < -Byte < 130) {
+				  timeold = millis();
+				  steering.write(-Byte);
+			  }
+			  else {
+				  Serial.print("Wrong number ");
+				  Serial.println((int)Byte);
+			  }
+
+		  }
+
+	  }
+  
+	if ((millis() - timeold) > 2000) {
+		timeold = millis();
+		motor.write(NEUTRAL);
+		steering.write(90);
+		Serial.println("Time limit");
+	}
+  }
   //TODO: add the tachometer part 
-  return;
+  	
+
+	return;
 }
 
 
