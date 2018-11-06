@@ -172,8 +172,6 @@ void* serial::_read_serial(void* args)
 
 
 
-
-
 void* serial::_write_serial(void* args)
 {
  printf("Launching arduino write thread\n");
