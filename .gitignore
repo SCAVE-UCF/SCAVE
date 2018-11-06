@@ -3,3 +3,24 @@
 ################################################################################
 
 /.vs
+
+
+# ignore a single file
+mycode.class
+
+# ignore an entire directory
+/mydebugdir/
+/testdir/
+# ignore a file type
+*.json
+
+# add an exception (using !) to the preceding rule to track a specific file
+!package.json
+
+# Temporarily ignore changes
+git update-index --assume-unchanged <file>
+
+# Permanently ignore changes to a file
+git rm --cached <file>
+
+
