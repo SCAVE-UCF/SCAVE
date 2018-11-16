@@ -70,7 +70,7 @@ void loop()
 
 	  }
   
-	if ((millis() - timeold) > 2000) {
+	if ((millis() - timeold) > 500) {
 		timeold = millis();
 		motor.write(NEUTRAL);
 		steering.write(90);

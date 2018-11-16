@@ -13,7 +13,10 @@ import time
 import os
 import paramiko
 
-
+#Gobal var
+global counter
+remote_images_path = '/home/nvidia/Downloads/githubs/SCAVE-master/dev/src/python/teleOp/local/'
+local_path = 'C:/Users/Rodolfo/Downloads/SCAVE-master/dev/src/python/teleOp/remote/'
 
 class vehicle(object):
     #constructor
@@ -100,14 +103,12 @@ def write (val, path, sftp):
     # paramiko.util.log_to_file('/tmp/paramiko.log')
     # paramiko.util.load_host_keys(os.path.expanduser('~/.ssh/known_hosts'))
     
-    
-
-    remote_images_path = '/home/nvidia/Documents/dev/src/py/teleOp/'
-    local_path = 'C:/Users/Rodolfo/Downloads/olddev/src/py/teleOp/'
+        
     file_remote = remote_images_path + path
     file_local = local_path + path
 
     sftp.put(file_local, file_remote)
+
 
 
 def goToPark(sftp):
@@ -125,16 +126,26 @@ def main():
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(
                 paramiko.AutoAddPolicy())
-    #ssh.connect('192.168.0.102', username='nvidia', password='nvidia')
-    ssh.connect('10.173.215.138', username='nvidia', password='nvidia')
+   
+    #ssh.connect('192.168.0.100', username='nvidia', password='nvidia')
+    ssh.connect('192.168.137.101', username='nvidia', password='nvidia')
+
     sftp = ssh.open_sftp()
 
 
     #Initialization
+    global counter
+    counter=0
+    file_remote_status = remote_images_path + 'status.txt'
+    file_local_status = local_path + 'status.txt'
+
     run = True
     brake = False
     steer = False
     teleOp = goToPark(sftp)
+
+    start_time = time.time()
+
     while run:
 
         if keyboard.is_pressed("w"):
@@ -182,6 +193,18 @@ def main():
             teleOp = goToPark( sftp)
             write((teleOp.throttle), 'throttle.txt', sftp)
             run = False
+
+        
+
+        elapsed_time = time.time() - start_time
+        if elapsed_time >0.1:      
+            #update status
+            counter=counter+1
+            f = open('status.txt', 'w')
+            f.write(str(counter))
+            f.close()
+            sftp.put(file_local_status, file_remote_status)    
+            start_time = time.time()
 
         showDash(teleOp)
         time.sleep(0.005)
