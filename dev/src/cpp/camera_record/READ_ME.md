@@ -6,7 +6,10 @@ need to update paths for tachometer file,steering file,  throttle file, image ou
 To build:
 
 mkdir build
+
 cd build
+
 cmake ..
+
 make
 
